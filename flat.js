@@ -5,10 +5,10 @@ Object.defineProperty(Array.prototype, 'flat', {
     const array = this;
 
     function flattenArr(arr, depth) {
-      if (depth < 1) return arr;
+      if (depth < 1) return arr;//базовый случай, выходим из функции
       const flattenedArr = [];
       arr.forEach((item) => {
-        if (Array.isArray(item)) {
+        if (Array.isArray(item)) {//если наш елемент массив передаём его в качестве аргумента в нашу рекурсивную функцию и пушим это значение в наш нвый массив
           flattenedArr.push(...flattenArr(item, depth - 1));
         } else {
           flattenedArr.push(item);
