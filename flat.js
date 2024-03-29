@@ -1,7 +1,7 @@
 Array.prototype.flat = null;
 
 Object.defineProperty(Array.prototype, 'flat', {
-  value: function (depth = 1) {
+  value: function (depth = 1) {//определяем метод flat
     const array = this;
 
     function flattenArr(arr, depth) {
