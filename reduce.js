@@ -1,22 +1,27 @@
-Array.prototype.reduce = null;
+Array.prototype.myReduce = function (callback, initialValue) {
+  // Variable that accumulates the result
+  // after performing operation one-by-one
+  // on the array elements
+  let accumulator = initialValue;
 
-Object.defineProperty(Array.prototype, 'reduce', {
-  value: function (callback, initialValue) {//reduce - в качестве аргумента принимает функцию и изначальное значение, необязательный параметр
-    const array = this;
-    let acc = initialValue !== undefined ? initialValue : array[0];//определяем значение аккамулятора, если не задан initialValue то это будет первый элемент массива
-    if (initialValue === undefined) {
-      for (let i = 0; i < array.length; i += 1) {//проходимся по всем элементам массива и на каждой иттерации вызываем переданную функцию с двумя аргументами acc и текущий элемент массива, 
-        acc = callback(acc, array[i]);// значение этой функции передаём аккумулятору
-      }
+  for (let i = 0; i < this.length; i++) {
+    // If the initialValue exists, we call
+    // the callback function on the existing
+    // element and store in accumulator
+    if (accumulator) {
+      accumulator = callback.call(undefined, accumulator, this[i], i, this);
+
+      // If initialValue does not exist,
+      // we assign accumulator to the
+      // current element of the array
     } else {
-      for (let i = 1; i < array.length; i += 1) {
-        acc = callback(acc, array[i]);
-      }
+      accumulator = this[i];
     }
-    return acc;//функция reduce возвращает нам значение аккумулятора
-  },
-});
+  }
 
+  // We return the overall accumulated response
+  return accumulator;
+};
 
 const arr = [1, 2, 3, 4];
 
